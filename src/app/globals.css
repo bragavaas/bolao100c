@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta: gramado + azul royal do escudo, amarelo só para destaque/medalhas */
+  --color-pitch: #0e7c43;
+  --color-pitch-deep: #085c31;
+  --color-royal: #1d3b8b;
+  --color-sun: #f2b705;
+  --color-ink: #131a26;
+  --color-mist: #f4f6f8;
+  --color-line: #e4e8ec;
+
+  --font-display: var(--font-archivo), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-mist);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Caixa de placar — elemento-assinatura dos cards de jogo */
+.score-box {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--color-line);
+  background: #fff;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--color-ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.score-box:focus {
+  outline: none;
+  border-color: var(--color-pitch);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-pitch) 18%, transparent);
+}
+
+.score-box:disabled {
+  background: var(--color-mist);
+  color: #8a93a0;
+}
+
+.score-box::-webkit-outer-spin-button,
+.score-box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.score-box[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
