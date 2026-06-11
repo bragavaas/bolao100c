@@ -17,6 +17,7 @@ const schema = z.object({
     .min(3)
     .max(24)
     .regex(/^[a-zA-Z0-9_.]+$/, "Use apenas letras, números, ponto e underline."),
+  email: z.string().trim().email({ message: "E-mail inválido." }).max(254),
   password: z.string().min(6).max(72),
 });
 
@@ -41,6 +42,7 @@ export async function POST(request: Request) {
     .insert({
       username: parsed.data.username,
       display_name: parsed.data.displayName,
+      email: parsed.data.email,
     })
     .select("id, username, display_name, role")
     .single();

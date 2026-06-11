@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 
 export default function CadastroPage() {
   const router = useRouter();
@@ -12,10 +12,12 @@ export default function CadastroPage() {
     inviteCode: "",
     displayName: "",
     username: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   function update(field: keyof typeof form) {
     return (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -76,12 +78,31 @@ export default function CadastroPage() {
         />
         <input
           className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm focus:border-pitch focus:outline-none"
-          placeholder="Senha (mínimo 6 caracteres)"
-          type="password"
-          autoComplete="new-password"
-          value={form.password}
-          onChange={update("password")}
+          placeholder="E-mail"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
+          value={form.email}
+          onChange={update("email")}
         />
+        <div className="relative">
+          <input
+            className="w-full rounded-xl border border-line bg-white px-4 py-3 pr-10 text-sm focus:border-pitch focus:outline-none"
+            placeholder="Senha (mínimo 6 caracteres)"
+            type={showPassword ? "text" : "password"}
+            autoComplete="new-password"
+            value={form.password}
+            onChange={update("password")}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-ink/60"
+            aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+          >
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+        </div>
         <button
           onClick={submit}
           disabled={loading || !ready}
