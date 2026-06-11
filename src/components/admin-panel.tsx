@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, RefreshCcw, Calculator } from "lucide-react";
+import Link from "next/link";
+import { Loader2, RefreshCcw, Calculator, Edit2 } from "lucide-react";
 import { formatKickoff } from "@/lib/format";
 
 export interface AdminMatch {
@@ -274,7 +275,16 @@ export function AdminPanel({
                   {match.external_match_id ? ` \u00b7 fixture ${match.external_match_id}` : " \u00b7 sem fixture"}
                   {match.api_source ? ` \u00b7 ${match.api_source}` : ""}
                 </span>
-                <span>{formatKickoff(match.match_date)}</span>
+                <div className="flex items-center gap-2">
+                  <span>{formatKickoff(match.match_date)}</span>
+                  <Link
+                    href={`/admin/games/${match.id}`}
+                    className="rounded bg-mist px-2 py-1 text-ink/60 hover:bg-mist/80"
+                    title="Editar jogo"
+                  >
+                    <Edit2 size={12} />
+                  </Link>
+                </div>
               </div>
               <p className="mt-1.5 font-display text-sm font-semibold">
                 {match.home_team} <span className="text-ink/40">x</span> {match.away_team}
